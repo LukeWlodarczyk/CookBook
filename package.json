@@ -1,0 +1,23 @@
+{
+	"name": "cookbook",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"server": "nodemon server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LukeWlodarczyk/CookBook.git"
+	},
+	"author": "Luke",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/LukeWlodarczyk/CookBook/issues"
+	},
+	"homepage": "https://github.com/LukeWlodarczyk/CookBook#readme",
+	"dependencies": {
+		"express": "^4.16.3",
+		"nodemon": "^1.17.5"
+	}
+}
