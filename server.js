@@ -1,9 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
+
+const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
+
 const { mongoURI } = require('./config/keys');
 
-require('./models/User');
-require('./models/Recipe');
+const User = require('./models/User');
+const Recipe = require('./models/Recipe');
+
+const { typeDefs } = require('./schema');
+const { resolvers } = require('./resolvers');
+
+const schema = {
+	typeDefs,
+	resolvers,
+};
 
 const app = express();
 
@@ -20,6 +32,19 @@ mongoose
 	});
 
 app.use(express.json());
+
+app.use('/graphigl', graphiqlExpress({ endpointURL: '/graphigl' }));
+
+app.use(
+	'/graphgl',
+	graphqlExpress({
+		schema,
+		context: {
+			Recipe,
+			User,
+		},
+	})
+);
 
 app.get('/', (req, res) => {
 	res.send({ hello: 'hello' });
