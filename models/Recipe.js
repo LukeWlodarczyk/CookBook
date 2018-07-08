@@ -18,7 +18,7 @@ const RecipeSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	likse: {
+	likes: {
 		type: Number,
 		default: 0,
 	},
