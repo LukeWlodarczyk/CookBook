@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const UserSchema = new Schema({
 	username: {
@@ -24,6 +25,18 @@ const UserSchema = new Schema({
 		type: [Schema.Types.ObjectId],
 		ref: 'recipes',
 	},
+});
+
+UserSchema.pre('save', function(next) {
+	if (!this.isModified('password')) {
+		return next();
+	}
+
+	bcrypt.hash(this.password, 10, (err, hash) => {
+		if (err) return next(err);
+		this.password = hash;
+		next();
+	});
 });
 
 module.exports = mongoose.model('users', UserSchema);

@@ -26,7 +26,7 @@ const RecipeSchema = new Schema({
 		type: Date,
 		default: Date.now,
 	},
-	user: {
+	username: {
 		type: String,
 		required: true,
 	},
