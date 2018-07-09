@@ -3,4 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import ApolloClinet from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+
+const client = new ApolloClinet({
+	uri: 'http://localhost:5000/graphql',
+});
+
+ReactDOM.render(
+	<ApolloProvider client={client}>
+		<App />
+	</ApolloProvider>,
+	document.getElementById('root')
+);
