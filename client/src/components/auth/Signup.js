@@ -80,14 +80,14 @@ class Signup extends Component {
 									value={email}
 								/>
 								<input
-									type="text"
+									type="password"
 									name="password"
 									placeholder="Password"
 									onChange={this.handleChange}
 									value={password}
 								/>
 								<input
-									type="text"
+									type="password"
 									name="passwordConf"
 									placeholder="Password confirmation"
 									onChange={this.handleChange}
