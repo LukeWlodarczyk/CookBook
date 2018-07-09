@@ -20,14 +20,12 @@ const client = new ApolloClinet({
 
 const Root = () => (
 	<Router>
-		<div>
-			<Switch>
-				<Route exact path="/" component={App} />
-				<Route path="/signin" component={Signin} />
-				<Route path="/signup" component={Signup} />
-				<Redirect to="/" />
-			</Switch>
-		</div>
+		<Switch>
+			<Route exact path="/" component={App} />
+			<Route path="/signin" component={Signin} />
+			<Route path="/signup" component={Signup} />
+			<Redirect to="/" />
+		</Switch>
 	</Router>
 );
 
