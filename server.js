@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const cors = require('cors');
 const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
@@ -29,6 +29,13 @@ mongoose
 	});
 
 const app = express();
+
+const corsOpts = {
+	origin: 'http://localhost:3000',
+	credentials: true,
+};
+
+app.use(cors(corsOpts));
 
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
