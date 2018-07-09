@@ -22,9 +22,23 @@ exports.resolvers = {
 		addRecipe: async (root, args, { Recipe }) => {
 			return await new Recipe(args).save();
 		},
+
 		removeRecipe: async (root, { id }, { Recipe }) => {
 			return await Recipe.findByIdAndRemove(id);
 		},
+
+		signinUser: async (root, { username, password }, { User }) => {
+			const user = await User.findOne({ username });
+			if (!user) throw new Error('Username / password incorrect');
+
+			const isMatch = await user.comparePassword(password);
+			if (!isMatch) throw new Error('Username / password incorrect');
+
+			return {
+				token: createToken(user, jwt_secret),
+			};
+		},
+
 		signupUser: async (root, { username, email, password }, { User }) => {
 			const user_username = await User.findOne({ username });
 			if (user_username) throw new Error('Username already exist');
@@ -34,7 +48,7 @@ exports.resolvers = {
 			const newUser = await new User({ username, email, password }).save();
 
 			return {
-				token: createToken(newUser, jwt_secret, 60 * 60 * 60 * 60),
+				token: createToken(newUser, jwt_secret),
 			};
 		},
 	},

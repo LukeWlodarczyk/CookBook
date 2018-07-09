@@ -30,7 +30,10 @@ type Token {
 
 type Mutation {
   addRecipe(name: String!, description: String!, category: String!, instructions: String!, user: String!): Recipe
+
   removeRecipe(id: ID!): Recipe
+
+  signinUser(username: String!, password: String!): Token
 
   signupUser(username: String!, email: String!, password: String!): Token
 }
