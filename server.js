@@ -1,23 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const bodyParser = require('body-parser');
 const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
-const { mongoURI } = require('./config/keys');
-
-const User = require('./models/User');
 const Recipe = require('./models/Recipe');
+const User = require('./models/User');
+const { mongoURI } = require('./config/keys');
 
 const { typeDefs } = require('./schema');
 const { resolvers } = require('./resolvers');
 
-const schema = {
+const schema = makeExecutableSchema({
 	typeDefs,
 	resolvers,
-};
-
-const app = express();
+});
 
 mongoose
 	.connect(
@@ -28,27 +25,24 @@ mongoose
 		console.log('DB connected');
 	})
 	.catch(err => {
-		console.log(err);
+		console.error(err);
 	});
 
-app.use(express.json());
+const app = express();
 
-app.use('/graphigl', graphiqlExpress({ endpointURL: '/graphigl' }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.use(
-	'/graphgl',
-	graphqlExpress({
+	'/graphql',
+	express.json(),
+	graphqlExpress(() => ({
 		schema,
 		context: {
 			Recipe,
 			User,
 		},
-	})
+	}))
 );
-
-app.get('/', (req, res) => {
-	res.send({ hello: 'hello' });
-});
 
 const port = process.env.PORT || 5000;
 
