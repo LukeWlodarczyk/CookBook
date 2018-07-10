@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
+const jwt = require('jsonwebtoken');
 
 const Recipe = require('./models/Recipe');
 const User = require('./models/User');
-const { mongoURI } = require('./config/keys');
+const { mongoURI, jwt_secret } = require('./config/keys');
 
 const { typeDefs } = require('./schema');
 const { resolvers } = require('./resolvers');
@@ -37,16 +38,31 @@ const corsOpts = {
 
 app.use(cors(corsOpts));
 
+app.use(async (req, res, next) => {
+	const token = req.headers['authorization'];
+	if (token !== 'null') {
+		try {
+			const currentUser = await jwt.verify(token, jwt_secret);
+			req.authUser = currentUser;
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	next();
+});
+
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.use(
 	'/graphql',
 	express.json(),
-	graphqlExpress(() => ({
+	graphqlExpress(({ authUser }) => ({
 		schema,
 		context: {
 			Recipe,
 			User,
+			authUser,
 		},
 	}))
 );
