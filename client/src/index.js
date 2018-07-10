@@ -16,6 +16,22 @@ import {
 
 const client = new ApolloClinet({
 	uri: 'http://localhost:5000/graphql',
+	fetchOptions: {
+		credentials: 'include',
+	},
+	request: operation => {
+		const token = localStorage.getItem('token');
+		operation.setContext({
+			headers: {
+				authorization: token,
+			},
+		});
+	},
+	onError: ({ networkError }) => {
+		if (networkError) {
+			console.log(networkError);
+		}
+	},
 });
 
 const Root = () => (
