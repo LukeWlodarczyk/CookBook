@@ -9,7 +9,7 @@ export default Component => props => (
 			if (loading) return null;
 			console.log(data);
 
-			return <Component {...props} refetch={refetch} />;
+			return <Component {...props} refetch={refetch} session={data} />;
 		}}
 	</Query>
 );

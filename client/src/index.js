@@ -1,8 +1,12 @@
 import './index.css';
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './components/App';
+import Navbar from './components/Navbar';
+import Search from './components/recipe/Search';
+import AddRecipe from './components/recipe/AddRecipe';
+import Profile from './components/profile/Profile';
 import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
 import withSession from './components/withSession';
@@ -36,20 +40,26 @@ const client = new ApolloClinet({
 	},
 });
 
-const Root = ({ refetch }) => (
+const Root = ({ refetch, session }) => (
 	<Router>
-		<Switch>
-			<Route exact path="/" component={App} />
-			<Route
-				path="/signin"
-				render={({ history }) => <Signin {...{ history, refetch }} />}
-			/>
-			<Route
-				path="/signup"
-				render={({ history }) => <Signup {...{ history, refetch }} />}
-			/>
-			<Redirect to="/" />
-		</Switch>
+		<Fragment>
+			<Navbar session={session} />
+			<Switch>
+				<Route exact path="/" component={App} />
+				<Route path="/search" component={Search} />
+				<Route
+					path="/signin"
+					render={({ history }) => <Signin {...{ history, refetch }} />}
+				/>
+				<Route
+					path="/signup"
+					render={({ history }) => <Signup {...{ history, refetch }} />}
+				/>
+				<Route path="/recipe/add" component={AddRecipe} />
+				<Route path="/profile" component={Profile} />
+				<Redirect to="/" />
+			</Switch>
+		</Fragment>
 	</Router>
 );
 
