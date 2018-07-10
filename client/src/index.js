@@ -1,9 +1,11 @@
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import App from './components/App';
 import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
+import withSession from './components/withSession';
 
 import ApolloClinet from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
@@ -34,20 +36,28 @@ const client = new ApolloClinet({
 	},
 });
 
-const Root = () => (
+const Root = ({ refetch }) => (
 	<Router>
 		<Switch>
 			<Route exact path="/" component={App} />
-			<Route path="/signin" component={Signin} />
-			<Route path="/signup" component={Signup} />
+			<Route
+				path="/signin"
+				render={({ history }) => <Signin {...{ history, refetch }} />}
+			/>
+			<Route
+				path="/signup"
+				render={({ history }) => <Signup {...{ history, refetch }} />}
+			/>
 			<Redirect to="/" />
 		</Switch>
 	</Router>
 );
 
+const RootWithSession = withSession(Root);
+
 ReactDOM.render(
 	<ApolloProvider client={client}>
-		<Root />
+		<RootWithSession />
 	</ApolloProvider>,
 	document.getElementById('root')
 );

@@ -30,9 +30,11 @@ class Signin extends Component {
 	handleSubmit = (e, signinUser) => {
 		e.preventDefault();
 
-		signinUser().then(({ data }) => {
+		signinUser().then(async ({ data }) => {
 			localStorage.setItem('token', data.signinUser.token);
+			await this.props.refetch();
 			this.clearState();
+			this.props.history.push('/');
 		});
 	};
 
@@ -46,6 +48,7 @@ class Signin extends Component {
 
 	render() {
 		const { username, password } = this.state;
+
 		return (
 			<div className="App">
 				<h2>Signin</h2>
