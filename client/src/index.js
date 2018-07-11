@@ -26,7 +26,7 @@ const client = new ApolloClinet({
 		credentials: 'include',
 	},
 	request: operation => {
-		const token = localStorage.getItem('token');
+		const token = localStorage.getItem('token') || '';
 		operation.setContext({
 			headers: {
 				authorization: token,
