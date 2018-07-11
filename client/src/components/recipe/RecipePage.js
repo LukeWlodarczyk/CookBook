@@ -12,10 +12,18 @@ const RecipePage = ({
 }) => (
 	<Query query={GET_RECIPE} variables={{ id }}>
 		{({ loading, error, data }) => {
-			if (loading) return 'loading';
+			if (loading) return <div className="App">Loading</div>;
 			if (error) return <Error error={error} />;
-			console.log(data);
-			return <p>page</p>;
+			return (
+				<div className="App">
+					<h2>{data.getRecipe.name}</h2>
+					<p>Category: {data.getRecipe.category}</p>
+					<p>Descriprion: {data.getRecipe.description}</p>
+					<p>Instructions: {data.getRecipe.instructions}</p>
+					<p>Likes: {data.getRecipe.likes}</p>
+					<p>Created by: {data.getRecipe.username}</p>
+				</div>
+			);
 		}}
 	</Query>
 );
