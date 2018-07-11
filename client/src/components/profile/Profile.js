@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
-class Profile extends Component {
-	render() {
-		return <p>Profile</p>;
-	}
-}
+import UserInfo from './UserInfo';
+
+const Profile = ({ session }) => (
+	<div className="App">
+		<UserInfo session={session} />
+	</div>
+);
 
 export default Profile;

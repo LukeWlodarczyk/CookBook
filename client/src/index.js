@@ -60,7 +60,7 @@ const Root = ({ refetch, session }) => (
 					path="/recipe/add"
 					component={({ history }) => <AddRecipe {...{ history, session }} />}
 				/>
-				<Route path="/profile" component={Profile} />
+				<Route path="/profile" render={() => <Profile session={session} />} />
 				<Route path="/recipes/:id" component={RecipePage} />
 				<Redirect to="/" />
 			</Switch>
