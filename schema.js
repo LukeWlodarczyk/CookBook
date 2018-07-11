@@ -8,7 +8,7 @@ type Recipe {
   instructions: String!
   likes: Int!
   createdDate: String
-  user: String!
+  username: String!
 }
 
 type User {
@@ -33,7 +33,7 @@ type Token {
 }
 
 type Mutation {
-  addRecipe(name: String!, description: String!, category: String!, instructions: String!, user: String!): Recipe
+  addRecipe(name: String!, description: String!, category: String!, instructions: String!, username: String!): Recipe
 
   removeRecipe(id: ID!): Recipe
 

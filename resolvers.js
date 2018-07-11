@@ -15,7 +15,7 @@ const createToken = ({ username, email }, secret, expiresIn = '7d') =>
 exports.resolvers = {
 	Query: {
 		getAllRecipes: async (root, args, { Recipe }) => {
-			return await Recipe.find();
+			return await Recipe.find().sort({ createdDate: 'desc' });
 		},
 		getRecipe: async (root, { id }, { Recipe }) => {
 			return await Recipe.findById(id);
