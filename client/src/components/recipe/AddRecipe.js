@@ -124,7 +124,7 @@ class AddRecipe extends Component {
 									value={instructions}
 								/>
 								<button
-									disabled={loading}
+									disabled={loading || this.validateForm()}
 									type="submit"
 									className="button-primary"
 								>

@@ -41,6 +41,10 @@ export const GET_CURRENT_USER = gql`
 			username
 			email
 			joinDate
+			favourites {
+				id
+				name
+			}
 		}
 	}
 `;
