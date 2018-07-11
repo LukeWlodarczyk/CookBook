@@ -20,6 +20,7 @@ export const GET_RECIPE = gql`
 			instructions
 			likes
 			createdDate
+			username
 		}
 	}
 `;
@@ -46,6 +47,31 @@ export const SIGN_IN_USER = gql`
 	mutation($username: String!, $password: String!) {
 		signinUser(username: $username, password: $password) {
 			token
+		}
+	}
+`;
+
+export const ADD_RECIPE = gql`
+	mutation(
+		$name: String!
+		$description: String!
+		$category: String!
+		$instructions: String!
+		$username: String!
+	) {
+		addRecipe(
+			name: $name
+			description: $description
+			category: $category
+			instructions: $instructions
+			username: $username
+		) {
+			id
+			name
+			description
+			category
+			instructions
+			username
 		}
 	}
 `;
