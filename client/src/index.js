@@ -6,6 +6,7 @@ import App from './components/App';
 import Navbar from './components/Navbar';
 import Search from './components/recipe/Search';
 import AddRecipe from './components/recipe/AddRecipe';
+import RecipePage from './components/recipe/RecipePage';
 import Profile from './components/profile/Profile';
 import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
@@ -26,7 +27,7 @@ const client = new ApolloClinet({
 		credentials: 'include',
 	},
 	request: operation => {
-		const token = localStorage.getItem('token') || '';
+		const token = localStorage.getItem('token');
 		operation.setContext({
 			headers: {
 				authorization: token,
@@ -57,6 +58,7 @@ const Root = ({ refetch, session }) => (
 				/>
 				<Route path="/recipe/add" component={AddRecipe} />
 				<Route path="/profile" component={Profile} />
+				<Route path="/recipes/:id" component={RecipePage} />
 				<Redirect to="/" />
 			</Switch>
 		</Fragment>

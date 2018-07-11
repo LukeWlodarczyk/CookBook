@@ -10,6 +10,20 @@ export const GET_ALL_RECIPES = gql`
 	}
 `;
 
+export const GET_RECIPE = gql`
+	query($id: ID!) {
+		getRecipe(id: $id) {
+			name
+			category
+			id
+			description
+			instructions
+			likes
+			createdDate
+		}
+	}
+`;
+
 export const GET_CURRENT_USER = gql`
 	query {
 		getCurrentUser {
