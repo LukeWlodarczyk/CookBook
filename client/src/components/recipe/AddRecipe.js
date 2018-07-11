@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 
 import Error from '../Error';
 
-import { ADD_RECIPE } from '../../queries';
+import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries';
 
 const initialState = {
 	name: '',
@@ -42,13 +42,24 @@ class AddRecipe extends Component {
 		return isInvalid;
 	};
 
+	updateCache = (cache, { data: { addRecipe } }) => {
+		const { getAllRecipes } = cache.readQuery({ query: GET_ALL_RECIPES });
+
+		cache.writeQuery({
+			query: GET_ALL_RECIPES,
+			data: {
+				getAllRecipes: [addRecipe, ...getAllRecipes],
+			},
+		});
+	};
+
 	handleSubmit = (e, addRecipe) => {
 		e.preventDefault();
 
 		addRecipe()
 			.then(({ data }) => {
 				this.clearState();
-				this.props.history.push('/');
+				this.props.history.push('/recipes/' + data.addRecipe.id);
 			})
 			.catch(err => {
 				console.log(err);
@@ -68,6 +79,7 @@ class AddRecipe extends Component {
 					instructions,
 					username,
 				}}
+				update={this.updateCache}
 			>
 				{(addRecipe, { data, loading, error }) => {
 					return (
