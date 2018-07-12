@@ -59,6 +59,21 @@ exports.resolvers = {
 			return await new Recipe(args).save();
 		},
 
+		likeRecipe: async (root, { id, username }, { Recipe, User }) => {
+			const recipe = await Recipe.findByIdAndUpdate(id, { $inc: { likes: 1 } });
+
+			await User.findOneAndUpdate(
+				{ username },
+				{
+					$addToSet: {
+						favourites: id,
+					},
+				}
+			);
+
+			return recipe;
+		},
+
 		deleteUserRecipe: async (root, { id }, { Recipe }) => {
 			return await Recipe.findByIdAndRemove(id);
 		},
