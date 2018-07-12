@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import { GET_RECIPE } from '../../queries';
 
 import Error from '../Error';
+import LikeRecipe from './LikeRecipe';
 
 const RecipePage = ({
 	match: {
@@ -22,6 +23,7 @@ const RecipePage = ({
 					<p>Instructions: {data.getRecipe.instructions}</p>
 					<p>Likes: {data.getRecipe.likes}</p>
 					<p>Created by: {data.getRecipe.username}</p>
+					<LikeRecipe id={id} />
 				</div>
 			);
 		}}
