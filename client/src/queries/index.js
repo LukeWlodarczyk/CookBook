@@ -25,6 +25,16 @@ export const GET_RECIPE = gql`
 	}
 `;
 
+export const GET_USER_RECIPES = gql`
+	query($username: String!) {
+		getUserRecipes(username: $username) {
+			id
+			name
+			likes
+		}
+	}
+`;
+
 export const SEARCH_RECIPES = gql`
 	query($searchTerm: String!) {
 		searchRecipes(searchTerm: $searchTerm) {
