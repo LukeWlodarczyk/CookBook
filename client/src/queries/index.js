@@ -99,3 +99,11 @@ export const ADD_RECIPE = gql`
 		}
 	}
 `;
+
+export const DELETE_USER_RECIPE = gql`
+	mutation($id: ID!) {
+		deleteUserRecipe(id: $id) {
+			id
+		}
+	}
+`;
