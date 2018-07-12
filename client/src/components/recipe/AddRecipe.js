@@ -44,14 +44,16 @@ class AddRecipe extends Component {
 	};
 
 	updateCache = (cache, { data: { addRecipe } }) => {
-		const { getAllRecipes } = cache.readQuery({ query: GET_ALL_RECIPES });
+		if (cache.data.data.ROOT_QUERY.getAllRecipes) {
+			const { getAllRecipes } = cache.readQuery({ query: GET_ALL_RECIPES });
 
-		cache.writeQuery({
-			query: GET_ALL_RECIPES,
-			data: {
-				getAllRecipes: [addRecipe, ...getAllRecipes],
-			},
-		});
+			cache.writeQuery({
+				query: GET_ALL_RECIPES,
+				data: {
+					getAllRecipes: [addRecipe, ...getAllRecipes],
+				},
+			});
+		}
 	};
 
 	handleSubmit = (e, addRecipe) => {

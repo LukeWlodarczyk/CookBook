@@ -19,20 +19,22 @@ const handleDelete = deleteUserRecipe => {
 };
 
 const handleUpdate = username => (cache, { data: { deleteUserRecipe } }) => {
-	const { getUserRecipes } = cache.readQuery({
-		query: GET_USER_RECIPES,
-		variables: { username },
-	});
+	if (cache.data.data.ROOT_QUERY.getUserRecipes) {
+		const { getUserRecipes } = cache.readQuery({
+			query: GET_USER_RECIPES,
+			variables: { username },
+		});
 
-	cache.writeQuery({
-		query: GET_USER_RECIPES,
-		variables: { username },
-		data: {
-			getUserRecipes: getUserRecipes.filter(
-				recipe => recipe.id !== deleteUserRecipe.id
-			),
-		},
-	});
+		cache.writeQuery({
+			query: GET_USER_RECIPES,
+			variables: { username },
+			data: {
+				getUserRecipes: getUserRecipes.filter(
+					recipe => recipe.id !== deleteUserRecipe.id
+				),
+			},
+		});
+	}
 };
 
 const UserRecipes = ({ username }) => (
