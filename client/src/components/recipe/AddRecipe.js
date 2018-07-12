@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 
 import Error from '../Error';
+import withAuth from '../withAuth';
 
 import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries';
 
@@ -140,4 +141,4 @@ class AddRecipe extends Component {
 	}
 }
 
-export default AddRecipe;
+export default withAuth(AddRecipe);
