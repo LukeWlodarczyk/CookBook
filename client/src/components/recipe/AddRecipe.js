@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import Error from '../Error';
 import withAuth from '../withAuth';
 
-import { ADD_RECIPE, GET_ALL_RECIPES } from '../../queries';
+import { ADD_RECIPE, GET_ALL_RECIPES, GET_USER_RECIPES } from '../../queries';
 
 const initialState = {
 	name: '',
@@ -80,6 +80,9 @@ class AddRecipe extends Component {
 					instructions,
 					username,
 				}}
+				refetchQueries={() => [
+					{ query: GET_USER_RECIPES, variables: { username } },
+				]}
 				update={this.updateCache}
 			>
 				{(addRecipe, { data, loading, error }) => {

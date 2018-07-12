@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Query, Mutation } from 'react-apollo';
-import { GET_USER_RECIPES, DELETE_USER_RECIPE } from '../../queries';
+import {
+	GET_USER_RECIPES,
+	DELETE_USER_RECIPE,
+	GET_ALL_RECIPES,
+	GET_CURRENT_USER,
+} from '../../queries';
 
 const handleDelete = deleteUserRecipe => {
 	const confirm = window.confirm(
@@ -13,15 +18,36 @@ const handleDelete = deleteUserRecipe => {
 	}
 };
 
+const handleUpdate = username => (cache, { data: { deleteUserRecipe } }) => {
+	const { getUserRecipes } = cache.readQuery({
+		query: GET_USER_RECIPES,
+		variables: { username },
+	});
+
+	cache.writeQuery({
+		query: GET_USER_RECIPES,
+		variables: { username },
+		data: {
+			getUserRecipes: getUserRecipes.filter(
+				recipe => recipe.id !== deleteUserRecipe.id
+			),
+		},
+	});
+};
+
 const UserRecipes = ({ username }) => (
 	<Query query={GET_USER_RECIPES} variables={{ username }}>
 		{({ data, loading, error }) => {
 			if (loading) return 'Loading';
 			if (error) return <div>Error</div>;
-			console.log(data);
 			return (
 				<ul>
 					<h3>Your Recipes</h3>
+					{!data.getUserRecipes.length && (
+						<p>
+							<strong>You have not added any recipes yet</strong>
+						</p>
+					)}
 					{data.getUserRecipes.map(recipe => {
 						return (
 							<li key={recipe.id}>
@@ -32,17 +58,20 @@ const UserRecipes = ({ username }) => (
 								<Mutation
 									mutation={DELETE_USER_RECIPE}
 									variables={{ id: recipe.id }}
+									refetchQueries={() => [
+										{ query: GET_ALL_RECIPES },
+										{ query: GET_CURRENT_USER },
+									]}
+									update={handleUpdate(username)}
 								>
-									{deleteUserRecipe => {
-										return (
-											<button
-												className="delete-button"
-												onClick={handleDelete.bind(this, deleteUserRecipe)}
-											>
-												X
-											</button>
-										);
-									}}
+									{(deleteUserRecipe, { loading }) => (
+										<button
+											className="delete-button"
+											onClick={handleDelete.bind(this, deleteUserRecipe)}
+										>
+											{loading ? 'deleteing...' : 'X'}
+										</button>
+									)}
 								</Mutation>
 							</li>
 						);
