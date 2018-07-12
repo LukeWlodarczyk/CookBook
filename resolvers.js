@@ -20,6 +20,9 @@ exports.resolvers = {
 		getRecipe: async (root, { id }, { Recipe }) => {
 			return await Recipe.findById(id);
 		},
+		getUserRecipes: async (root, { username }, { Recipe }) => {
+			return await Recipe.find({ username }).sort({ createdDate: 'desc' });
+		},
 		searchRecipes: async (root, { searchTerm }, { Recipe }) => {
 			if (searchTerm) {
 				return await Recipe.find(
