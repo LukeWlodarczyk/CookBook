@@ -59,7 +59,7 @@ exports.resolvers = {
 			return await new Recipe(args).save();
 		},
 
-		removeRecipe: async (root, { id }, { Recipe }) => {
+		deleteUserRecipe: async (root, { id }, { Recipe }) => {
 			return await Recipe.findByIdAndRemove(id);
 		},
 

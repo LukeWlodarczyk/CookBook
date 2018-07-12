@@ -39,7 +39,7 @@ type Token {
 type Mutation {
   addRecipe(name: String!, description: String!, category: String!, instructions: String!, username: String!): Recipe
 
-  removeRecipe(id: ID!): Recipe
+  deleteUserRecipe(id: ID!): Recipe
 
   signinUser(username: String!, password: String!): Token
 
