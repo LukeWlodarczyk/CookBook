@@ -109,6 +109,15 @@ export const LIKE_RECIPE = gql`
 	}
 `;
 
+export const UNLIKE_RECIPE = gql`
+	mutation($id: ID!, $username: String!) {
+		unlikeRecipe(id: $id, username: $username) {
+			id
+			likes
+		}
+	}
+`;
+
 export const DELETE_USER_RECIPE = gql`
 	mutation($id: ID!) {
 		deleteUserRecipe(id: $id) {
