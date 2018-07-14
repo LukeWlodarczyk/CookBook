@@ -91,6 +91,7 @@ class LikeRecipe extends Component {
 								return (
 									username && (
 										<button
+											className="like-button"
 											onClick={this.handleClick.bind(
 												this,
 												likeRecipe,

@@ -17,16 +17,46 @@ const RecipePage = ({
 			if (loading) return <Spinner />;
 			if (error) return <Error error={error} />;
 			return (
-				<div className="App">
-					<h2>{data.getRecipe.name}</h2>
-					<p>Category: {data.getRecipe.category}</p>
-					<p>Descriprion: {data.getRecipe.description}</p>
-					<p
-						dangerouslySetInnerHTML={{ __html: data.getRecipe.instructions }}
+				<div>
+					<div
+						style={{
+							background: `url(${
+								data.getRecipe.imageUrl
+							}) center center / cover no-repeat`,
+						}}
+						className="recipe-image"
 					/>
-					<p>Likes: {data.getRecipe.likes}</p>
-					<p>Created by: {data.getRecipe.username}</p>
-					<LikeRecipe id={id} />
+
+					<div className="recipe">
+						<div className="recipe-header">
+							<h2 className="recipe-name">
+								<strong>{data.getRecipe.name}</strong>
+							</h2>
+							<h5>
+								<strong>{data.getRecipe.category}</strong>
+							</h5>
+							<p>
+								Created by <strong>{data.getRecipe.username}</strong>
+							</p>
+							<p>
+								{data.getRecipe.likes}{' '}
+								<span role="img" aria-label="heart">
+									❤️
+								</span>
+							</p>
+						</div>
+						<blockquote className="recipe-description">
+							{data.getRecipe.description}
+						</blockquote>
+						<h3 className="recipe-instructions__title">Instructions</h3>
+						<div
+							className="recipe-instructions"
+							dangerouslySetInnerHTML={{
+								__html: data.getRecipe.instructions,
+							}}
+						/>
+						<LikeRecipe id={id} />
+					</div>
 				</div>
 			);
 		}}

@@ -12,7 +12,6 @@ const RecipeItem = ({ id, name, imageUrl, category }) => (
 				<h4>{name}</h4>
 			</Link>
 		</div>
-		<p>{category}</p>
 	</li>
 );
 

@@ -106,7 +106,7 @@ class AddRecipe extends Component {
 				{(addRecipe, { data, loading, error }) => {
 					return (
 						<div className="App">
-							<h2 className="">Add Recipe</h2>
+							<h2 className="main-title">Add Recipe</h2>
 							<form
 								className="form"
 								onSubmit={e => this.handleSubmit(e, addRecipe)}
@@ -154,6 +154,7 @@ class AddRecipe extends Component {
 								<button
 									disabled={loading || this.validateForm()}
 									type="submit"
+									style={{ marginTop: '20px' }}
 									className="button-primary"
 								>
 									Submit
