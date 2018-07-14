@@ -20,7 +20,9 @@ const RecipePage = ({
 					<h2>{data.getRecipe.name}</h2>
 					<p>Category: {data.getRecipe.category}</p>
 					<p>Descriprion: {data.getRecipe.description}</p>
-					<p>Instructions: {data.getRecipe.instructions}</p>
+					<p
+						dangerouslySetInnerHTML={{ __html: data.getRecipe.instructions }}
+					/>
 					<p>Likes: {data.getRecipe.likes}</p>
 					<p>Created by: {data.getRecipe.username}</p>
 					<LikeRecipe id={id} />
