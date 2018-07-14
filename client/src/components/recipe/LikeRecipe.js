@@ -32,9 +32,13 @@ class LikeRecipe extends Component {
 
 	handleLike = (likeRecipe, unlikeRecipe) => {
 		if (this.state.liked) {
-			likeRecipe().then(async data => {});
+			likeRecipe().then(async data => {
+				await this.props.refetch();
+			});
 		} else {
-			unlikeRecipe().then(async data => {});
+			unlikeRecipe().then(async data => {
+				await this.props.refetch();
+			});
 		}
 	};
 
