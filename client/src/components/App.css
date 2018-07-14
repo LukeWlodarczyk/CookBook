@@ -49,3 +49,8 @@ textarea {
 	border: none;
 	font-size: 18px;
 }
+
+.spinner {
+	text-align: center;
+	padding: 5em;
+}

@@ -5,6 +5,7 @@ import { GET_RECIPE } from '../../queries';
 
 import Error from '../Error';
 import LikeRecipe from './LikeRecipe';
+import Spinner from '../Spinner';
 
 const RecipePage = ({
 	match: {
@@ -13,7 +14,7 @@ const RecipePage = ({
 }) => (
 	<Query query={GET_RECIPE} variables={{ id }}>
 		{({ loading, error, data }) => {
-			if (loading) return <div className="App">Loading</div>;
+			if (loading) return <Spinner />;
 			if (error) return <Error error={error} />;
 			return (
 				<div className="App">
