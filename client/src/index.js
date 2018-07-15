@@ -21,8 +21,10 @@ import {
 	Redirect,
 } from 'react-router-dom';
 
+// heroku uri https://graphql-recipes.herokuapp.com/graphql
+
 const client = new ApolloClinet({
-	uri: 'https://graphql-recipes.herokuapp.com/graphql',
+	uri: 'http://localhost:5000/graphql',
 	fetchOptions: {
 		credentials: 'include',
 	},
@@ -36,7 +38,7 @@ const client = new ApolloClinet({
 	},
 	onError: ({ networkError }) => {
 		if (networkError) {
-			console.log(networkError);
+			localStorage.setItem('token', '');
 		}
 	},
 });
