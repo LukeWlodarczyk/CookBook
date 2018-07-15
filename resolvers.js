@@ -80,7 +80,7 @@ exports.resolvers = {
 			});
 			const user = await User.findOneAndUpdate(
 				{ username },
-				{ $pull: { favorites: id } }
+				{ $pull: { favourites: id } }
 			);
 			return recipe;
 		},
