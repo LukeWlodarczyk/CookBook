@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Error from '../Error';
 import Spinner from '../Spinner';
 
 import { Query, Mutation } from 'react-apollo';
@@ -40,7 +41,7 @@ const UserRecipes = ({ username }) => (
 	<Query query={GET_USER_RECIPES} variables={{ username }}>
 		{({ data, loading, error }) => {
 			if (loading) return <Spinner />;
-			if (error) return <div>Error</div>;
+			if (error) return <Error error={error} />;
 			return (
 				<ul>
 					<h3>Your Recipes</h3>

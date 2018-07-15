@@ -9,14 +9,12 @@ const withAuth = Component => props => (
 		{({ data, loading, error }) => {
 			if (loading) return loading;
 			if (error) return <Redirect to="/signin" />;
-			console.log(data);
-			{
-				return data.getCurrentUser ? (
-					<Component {...props} />
-				) : (
-					<Redirect to="/signin" />
-				);
-			}
+
+			return data.getCurrentUser ? (
+				<Component {...props} />
+			) : (
+				<Redirect to="/signin" />
+			);
 		}}
 	</Query>
 );

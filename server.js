@@ -36,7 +36,7 @@ const corsOpts = {
 	credentials: true,
 };
 
-app.use(cors('*'));
+app.use(cors(corsOpts));
 
 app.use(async (req, res, next) => {
 	const token = req.headers['authorization'];
