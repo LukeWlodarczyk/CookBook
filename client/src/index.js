@@ -22,7 +22,7 @@ import {
 } from 'react-router-dom';
 
 const client = new ApolloClinet({
-	uri: 'http://localhost:5000/graphql',
+	uri: 'https://graphql-recipes.herokuapp.com/graphql',
 	fetchOptions: {
 		credentials: 'include',
 	},

@@ -32,7 +32,7 @@ mongoose
 const app = express();
 
 const corsOpts = {
-	origin: 'http://localhost:3000',
+	origin: 'https://graphql-recipes.herokuapp.com/graphql',
 	credentials: true,
 };
 
@@ -52,7 +52,7 @@ app.use(async (req, res, next) => {
 	next();
 });
 
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+// app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.use(
 	'/graphql',
