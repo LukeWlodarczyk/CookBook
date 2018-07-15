@@ -20,22 +20,20 @@ const handleDelete = deleteUserRecipe => {
 };
 
 const handleUpdate = username => (cache, { data: { deleteUserRecipe } }) => {
-	if (cache.data.data.ROOT_QUERY.getUserRecipes) {
-		const { getUserRecipes } = cache.readQuery({
-			query: GET_USER_RECIPES,
-			variables: { username },
-		});
+	const { getUserRecipes } = cache.readQuery({
+		query: GET_USER_RECIPES,
+		variables: { username },
+	});
 
-		cache.writeQuery({
-			query: GET_USER_RECIPES,
-			variables: { username },
-			data: {
-				getUserRecipes: getUserRecipes.filter(
-					recipe => recipe.id !== deleteUserRecipe.id
-				),
-			},
-		});
-	}
+	cache.writeQuery({
+		query: GET_USER_RECIPES,
+		variables: { username },
+		data: {
+			getUserRecipes: getUserRecipes.filter(
+				recipe => recipe.id !== deleteUserRecipe.id
+			),
+		},
+	});
 };
 
 const UserRecipes = ({ username }) => (
@@ -68,12 +66,12 @@ const UserRecipes = ({ username }) => (
 									update={handleUpdate(username)}
 								>
 									{(deleteUserRecipe, { loading }) => (
-										<button
+										<p
 											className="delete-button"
 											onClick={handleDelete.bind(this, deleteUserRecipe)}
 										>
 											{loading ? 'deleteing...' : 'X'}
-										</button>
+										</p>
 									)}
 								</Mutation>
 							</li>
